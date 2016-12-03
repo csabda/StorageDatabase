@@ -1,35 +1,72 @@
-# AdonisJs Application
+## Funkcionális és nem funkcionális követelmények - Pintér Kristóf Balázs (GEGST8)
 
-This repo is the pre-configured project structure to be used for creating ambitious web servers using AdonisJs.
+## Feledat leírás:
 
-> Make sure to star the official [framework repo](https://github.com/adonisjs/adonis-framework) or [tweet on twitter](https://twitter.com/intent/tweet?url=http://adonisjs.com&text=I%20am%20using%20AdonisJs,%20a%20practical%20MVC%20framework%20for%20nodejs&hashtags=nodejs,adonisframework) :wave:
+	Egy rakár kezelő alkalmazás fejlesztése, mely pontosan egy raktár készletét tarta nyílván.
+	Megfelelő hozzáférési jogosultsággal a raktár készletéhez hozzáadhatunk törölhetünk, 
+	lekérdezhetjük egy termékből mennyi van  és hogy hol található.
 
-## Story
+## Funkcionális követelmények:
+	
+	Bejelentkezés:
+		Alkalmazott:
+			csak olyan alkalmazott jelentkezhet be és dolgozhat a raktár kezelő programmal
+			aki szerepel az "ALKALMAZOTTAK" adatbázis táblában, melynek kezeléséhez adminisztrátori
+			jog kell
+		
+		Adminisztrátor:
+			MInden műveletet elvégezhet amelyet egy alkalmazott képes. Ezeken felül az admnisztrátor
+			hozzáadhat alkalmazottat az adatbázishoz, illetve törölhet onnan alkalmazottat.
+			Továbbá az adminisztrátornak van joga a beállításokat végezni (PL: ratár maximális kapacitása)
+			
+	Beállítások:
+		Csak az adminisztrátornak van joga ezt a funkciót elérni, mely tartalmazza az alábbiakat:
+			- Raktár maximális kapacitása
+			- Alkalmazott felvétele
+			- Alkalmazott törlése
+			- Alkalmazott adatok módosítása
+	
+	Új készlet elhelyezése:
+		Új készletet felvételre kerül a raktár adatbázisába paraméterek szerint melyek az alábbiak
+			- egység méret (térbeli kiterjedése)
+			- darabszám
+			- név
+			- egyéni ID
+		Ha nem sikerül mindet elhelyezni akkor visszaajda az el nem helyezhető termékek számát
+		Alkalmazottak és Adminisztrátorok egyaránt használhatják ezta funkciót.
+		
+	Készlet csökkentése:
+		Az új készlet elhelyezésénél felsorolt paraméterek alpaján csökkenti a készletet
+		Hibát dob ha a menyiség meghaladja a raktáron lévő mennyiséget.
+		Alkalmazottak és Adminisztrátorok egyaránt használhatják ezta funkciót.
 
-One day a :boy: wanted to write a web application to slowly turn it into a business and make some :moneybag: for better living. Being a Javascript lover, he decided to go with Node.js. 
+##Nem funkcionális követelmények:
 
-Hosting Node.js applications are cheap and offers lots of mordern programming concepts to build realtime data rich applications.
+	Használhatóság: 
+		Egyszerű, átlátható GUI minden felhasználó számára. Ne legyen szükséges dokumentációt
+		átolcasni a használathoz azaz önmagyarázó legyen
+	
+	Teljesítmény: 
+		Mivel minden raktár helység önálló adatbázissal rendelkezik és a raktáerak
+		mérete is igen csak véges, továbbá optimalizált SQL lekérdezések biztosítják 
+		az alkalmazás gyors futását
+		
+	Rendelkezésre állás:
+		Az adatbázis tároló szervert a Giantsoft üzemelteti, akik biztosítják azt hogy 
+		a szervereik egy éveben 99.9% ban rendelkezésre állnak.
 
-He was so excited and full of energy to build this application and share it with the world. But soon his dreams started struggling with the amount of decisions he has to make, just to build an MVP of his idea. These decisions were not even related to the business and was about.
-
-1. How should I structure my application?
-2. Why do I need to download 20 modules just to start an HTTP server, parse request body and upload files.
-3. How should I manage the authentication on website, and expose public API for others to interact with the data?
-4. What do I need to do to secure my application from web attacks and how to handle CORS?
-5. Why do I have ton of `require` statements everywhere?
-6. How the heck should I test my code? I am having hard time mocking dependencies.
-7. **WHY THE :fish:** there are no standards to write some code. Hell I am not going to write this application and going for a walk.
-
-
-## Not Anymore
-
-This is so frustating. Node.js is a beautiful language but all of the above questions have never been answered together. We all love writing small concise modules but business are not created by downloading 20 modules.
-
-Developers needs productive tools, so that they can focus on what matters, and not on downloading & finding the best ways to combine these small modules. 
-
-## AdonisJs
-
-AdonisJs is a beautiful framework with pre-configured answers to all of your questions. We not only created this framework, but validated the features of framework with realtime problems and still improving every bit, so that you have to write less and structured code.
-
-This time a :boy: will write his ambitious application and will set the world on :fire:``. Don't hesitate to work on your ideas and we promise to improve the framework every :sunny: and :first_quarter_moon_with_face: and YESSSS do not forget to star us on [:octocat:](https://github.com/adonisjs/adonis-framework)
-
+	Skálázhatóság:
+		Álltalában egy raktárhoz egy program és adatbázis tartozik. Ha a felhasználó 
+		egy szerver gépen akrja tárolni több raktára adatát egyeztessen a Giantsoft
+		munkatársaival milyen konfigurációt érdemes bérelnie
+		
+	Biztonság: 
+		Bármilyen funkció eléréséhez szükséges a bejelentkezés, továbbá minden kötelezően
+		kitöltendő mezőben ellenőrizzük	az adatokat még mielőtt azok tovább küldésre kerülnének.
+		További biztonsági intézkedés hogy adatokat egyedül az adminisztrátor módosíthat 
+		alkalmazottaknál, illetve csak ők vehetnek fel újabb alkalmazottat, 
+		továbbá egyedül ők férnek hozzá a beállíátsokhoz
+		
+	Karbantarthatóság: 
+		Az alkalmazás megvalósítása az MVC modellt fogja követni így moduláris lesz a rendszer
+		Könnyen hozzáadhatunk újabb modulokat a különböző rétegekhez vagy módosíthajtuk őket
