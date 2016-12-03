@@ -1,0 +1,15 @@
+{% extends "parent.njk" %}
+
+{% block content %}
+<div class="row">
+  <h1>{{ product.name }}</h1>
+  <h3>{{ product.unit_size }}</h3>
+  <p>{{ product.quantity }}</p>
+</div>
+<a href="/product/{{ product.id }}/edit">Szerkesztés</a>
+<form action = "/product/{{ product.id }}/delete" method="POST">
+    {{ csrfField }}
+
+<input type="submit" value="Törlés"/>
+</form>
+{% endblock %}

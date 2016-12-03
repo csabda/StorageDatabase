@@ -1,0 +1,23 @@
+{% extends "parent.njk" %}
+
+{% block content %}
+  {% for product in products.data %}
+  <div>
+    <h2>{{ product.name }}</h2>
+    <h3>{{ product.unit_size }}</h3>
+    <p>{{ product.quantity }}</p>
+    <a href="/product/{{ product.id }}/edit">Szerkesztés</a>
+  </div>
+  {% endfor %}
+<ul class="pagination">
+
+  {% for i in range(1, products.lastPage + 1) %}
+    {% if (i==products.currentPage) %}
+    <li class="active"><a href="#">{{ i }}</a></li>
+    {% else %}
+    <li><a href="?page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+{% endblock %}

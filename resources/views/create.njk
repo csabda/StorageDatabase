@@ -1,0 +1,46 @@
+{% extends "parent.njk" %}
+
+{% block content %}
+<div class="row">
+  <ul>
+    {% for error in old('errors') %}
+      <li>{{ error.message }}</li>
+    {% endfor %}
+  </ul>
+  <form class="form-horizontal" method="POST">
+    {{ csrfField }}
+    <fieldset>
+      <legen>Új áru hozzáadása</legend>
+
+          <div class="form-group">
+            <label for="username" class="col-lg-2 control-label">Termék Név</label>
+              <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputUsername" name="name" value="{{ old('name') }}" placeholder="Termék Neve">
+              </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Termék Méretei</label>
+            <div class="col-lg-10">
+              <input type="text" class="form-control" id="inputPassword" name="unit_size" placeholder="AxBxC">          
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="quantity" class="col-lg-2 control-label">Mennyiség</label>
+            <div class="col-lg-10">
+              <input type="text" class="form-control" id="inputPassword" name="quantity" placeholder="darabszám">          
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="col-lg-10 col-lg-offset-2">
+              <button type="submit" class="btn btn-primary">Felvétel</button>
+            </div>
+          </div>
+
+      </div>
+    </fieldset>
+  </form>
+</div>
+{% endblock %}
