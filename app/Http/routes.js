@@ -16,17 +16,16 @@
 */
 
 const Route = use('Route')
+//Route.on('/').render('main')
 
-// Route.on('/').render('welcome')
-Route.on('/').render('main')
-
-Route.get('/', 'StorageController.list');
+Route.on('/').render('welcome');
+Route.get('/show', 'StorageController.show');
 Route.get('/create', 'StorageController.create');
 Route.post('/create', 'StorageController.createNew');
 Route.get('/product/:id', 'StorageController.show');
 Route.get('/product/:id/edit', 'StorageController.edit');
 Route.post('/product/:id/edit', 'StorageController.editSubmit');
-Route.post('/product/:id/delete', 'StorageController.delete');
+Route.get('/product/:id/delete', 'StorageController.delete');
 
 Route.get('/register', 'UserController.register');
 Route.post('/register', 'UserController.registerSubmit');

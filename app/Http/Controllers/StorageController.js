@@ -5,18 +5,10 @@ const Validator = use('Validator')
 const Database = use('Database')
 
 class StorageController {
-    * list(req, res) {
-
-        yield res.sendView('main', {
-            //categories: categories.toJSON(),
-        });
-    }
 
     * create(req, res) {
 
-        yield res.sendView('create', {
-            //categories: categories.toJSON(),
-        });
+        yield res.sendView('create');
     }
 
     * createNew(req, res) {
@@ -55,15 +47,15 @@ class StorageController {
             yield product.save();
         }
 
-        res.redirect('/')
+        res.redirect('/show')
     }
 
     * show(req, res) {
 
-        var product = yield Product.findBy('id', req.param('id'));
+        var products = yield Product.all();
 
-        yield res.sendView('show', {
-            product: product.toJSON()
+        yield res.sendView('main', {
+            products: products.toJSON()
         });
     }
 
@@ -92,7 +84,7 @@ class StorageController {
         } else {
 
             yield product.save();
-            res.redirect('/');
+            res.redirect('/show');
         }
     }
 
@@ -116,7 +108,7 @@ class StorageController {
     }
 
     * delete(req, res) {
-        var product=yield Porduct.findBy('id', req.param('id'));
+        var product=yield Product.findBy('id', req.param('id'));
         
         yield product.delete();
 
